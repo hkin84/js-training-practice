@@ -26,14 +26,14 @@ $.ajax({
 
   // Append the progress bar to DOM
   $('body')
-    .append('<div style="position: fixed; bottom: 0; background: #eee; width: 100%; height: 6px; ">' +
-      '<div id="progress" style="background: #1678c2; width: 1%;">&nbsp;</div>' +
-      '</div>')
+    .append(`<div style="position: fixed; bottom: 0; background: #eee; width: 100%; height: 6px; "> 
+      <div id="progress" style="background: #1678c2; width: 1%;">&nbsp;</div>
+      </div>`)
 
   // Append title and form to quiz
   $('#quiz')
-    .append('<h1 class="ui header">' + data.title + '</h1>')
-    .append('<form id="quiz-form" class="ui form"></form>')
+    .append(`<h1 class="ui header">$data.title</h1>`)
+    .append(`<form id="quiz-form" class="ui form"></form>`)
 
   // For each question of the json,
   for (let i = 0; i < data.questions.length; i++) {
@@ -66,12 +66,12 @@ $.ajax({
             checked = ''
           }
 
-          input += '<div class="field">' +
-            '<div class="ui checkbox ' + type + '">' +
-            '<input type="' + type + '" ' + checked + ' name="question_' + i + '" id="question_' + i + '_' + j + '" value="' + option.label + '">' +
-            '<label for="question_' + i + '_' + j + '">' + option.label + '</label>' +
-            '</div>' +
-            '</div>'
+          input += `<div class="field">
+            <div class="ui checkbox $type ">
+            <input type="$type $checked  name="question_$i" id="question_$i_$j" value="$option.label">
+            <label for="question_$i_$j"> $option.label </label> 
+            </div>
+            </div>`
         }
         input += '</div>'
         break
@@ -89,14 +89,14 @@ $.ajax({
             value = ''
           }
 
-          input += '<tr>' +
-            '<td><label for="question_' + i + '_' + j + '">' + option.label + '</label></td>' +
-            '<td width="15px"></td>' +
-            '<td><div class="ui input">' +
-            '<input type="text" placeholder="Response..." name="question_' + i + '" id="question_' + i + '_' + j + '" value="' + value + '" />' +
-            '</div></td>' +
-            '</tr>' +
-            '<tr><td colspan="3">&nbsp;</tr></tr>'
+          input += `<tr>
+            <td><label for="question_$i_$j"> $option.label </label></td>
+            <td width="15px"></td>
+            <td><div class="ui input">
+            <input type="text" placeholder="Response..." name="question_$i" id="question_$i_$j" value="$value" />
+            </div></td>
+            </tr>
+            <tr><td colspan="3">&nbsp;</tr></tr>`
         }
         input += '</table>'
         break
@@ -108,19 +108,19 @@ $.ajax({
         } else {
           value = ''
         }
-        input = '<div class="ui input fluid">' +
-          '<input type="text" placeholder="Response..." name="question_' + i + '" value="' + value + '" />' +
-          '</div>'
+        input = `<div class="ui input fluid">
+          <input type="text" placeholder="Response..." name="question_$i" value="$value" />
+          </div>`
     }
 
-    $question = $('<div id="question-' + i + '" class="ui card" style="width: 100%;">' +
-      '<div class="content">' +
-      '<div class="header">' + question.problem + '</div>' +
-      '</div>' +
-      '<div class="content">' +
-      input +
-      '</div>' +
-      '</div>'
+    $question = $(`<div id="question-' + i + '" class="ui card" style="width: 100%;">
+      <div class="content">
+      <div class="header"> $question.problem </div>
+      </div>
+      <div class="content">
+      $input 
+      </div>
+      </div>`
     ).css('display', 'none')
 
     $('#quiz-form')
